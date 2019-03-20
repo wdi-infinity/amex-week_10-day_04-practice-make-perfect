@@ -74,14 +74,14 @@ db
 
 8. update the config file
 
-```
+```json
 // db/config/config.json
 
 {
   "development": {
   "username": <your username>,
   "password": null,
-  "database": "sequelize_demo",
+  "database": "blog",
   "host": "127.0.0.1",
   "dialect": "postgres",
   "define": {
@@ -103,15 +103,35 @@ db
 - Change the table name to make it all lower case `postgres naming conventions`
 - Add the assocation
 
-11. update the migration file Change the table name to make it all lower case `postgres naming conventions` and add the assocation field
+11. update the migration file Change the table name to make it all lower case `postgres naming conventions` and add the assocation field then change the updatedAt to updated_at and createdAt to created_at
 
-12. run the migration files
+```js
+// add post id in the comment table
+...
+ post_id: {
+        type: Sequelize.INTEGER,
+        onDelete: "CASCADE",
+        references: {
+          model: "posts",
+          key: "id"
+        }
+      }
+  ....
+```
+
+12. create the database
+
+```
+createdb blog
+```
+
+13. run the migration files
 
 ```
 write the command
 ```
 
-13. create an index.js file to write your query
+14. create an index.js file to write your query
 
 - Create a new post
 - Create a new comment
@@ -120,7 +140,7 @@ write the command
 > don't forget to require the modesl before running the queries
 > const db = require("./db/models");
 
-14. what is the diffrent between running migration and using ?
+15. what is the diffrent between running migration and using ?
 
 ```
 db.sequelize.sync({force: true})
